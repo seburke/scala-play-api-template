@@ -15,6 +15,10 @@ object Application extends Controller {
 
 class ApiController(apiProcessor: ApiProcessor) extends Controller {
 
+    def testNoAuth(testString: String) = Action {
+        Ok(Json.obj("Success" -> testString))
+    }
+
     def test(testS: String): Action[JsValue] = Action(parse.json) {request =>
         apiProcessor.test(request, testS)
     }
@@ -31,7 +35,7 @@ class ApiProcessor(authHandler: BasicAuthHandler) {
         }
 
 
-        return HttpResult.getOkResult(Json.obj("Success" -> "test worked"))
+        return HttpResult.getOkResult(Json.obj("Success" -> testS))
     }
 
 
